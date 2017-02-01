@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flexLibProperties version="1">
+  <includeClasses>
+    <classEntry path="atemis.MP3lib.events.MP3Event"/>
+    <classEntry path="atemis.MP3lib.decoder.Decoder"/>
+  </includeClasses>
+  <includeResources/>
+  <namespaceManifests/>
+</flexLibProperties>
