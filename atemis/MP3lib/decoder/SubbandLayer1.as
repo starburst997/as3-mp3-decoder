@@ -1,9 +1,9 @@
 /*
- * 06/01/07  	Ported to ActionScript 3. By Jean-Denis Boivin 
+ * 06/01/07  	Ported to ActionScript 3. By Jean-Denis Boivin
  *			 	(jeandenis.boivin@gmail.com) From Team-AtemiS.com
  *
  * 11/19/04		1.0 moved to LGPL.
- * 
+ *
  * 12/12/99		Initial version. Adapted from javalayer.java
  *				and Subband*.java. mdm@techie.com
  *
@@ -24,9 +24,9 @@
  *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
  */
- 
+
 package atemis.MP3lib.decoder {
-		
+
 		/**
 		 * Class for layer I subbands in single channel mode.
 		 * Used for single channel mode
@@ -34,7 +34,7 @@ package atemis.MP3lib.decoder {
 		 */
 		/*static*/ internal class SubbandLayer1 extends Subband
 		{
-	
+
 		  // Factors and offsets for sample requantization
 		  public static const table_factor:Array = [
 		   0.0, (1.0/2.0) * (4.0/3.0), (1.0/4.0) * (8.0/7.0), (1.0/8.0) * (16.0/15.0),
@@ -44,7 +44,7 @@ package atemis.MP3lib.decoder {
 		  (1.0/2048.0) * (4096.0/4095.0), (1.0/4096.0) * (8192.0/8191.0),
 		  (1.0/8192.0) * (16384.0/16383.0), (1.0/16384.0) * (32768.0/32767.0)
 		  ];
-	
+
 		  public static const table_offset:Array = [
 		   0.0, ((1.0/2.0)-1.0) * (4.0/3.0), ((1.0/4.0)-1.0) * (8.0/7.0), ((1.0/8.0)-1.0) * (16.0/15.0),
 		  ((1.0/16.0)-1.0) * (32.0/31.0), ((1.0/32.0)-1.0) * (64.0/63.0), ((1.0/64.0)-1.0) * (128.0/127.0),
@@ -53,7 +53,7 @@ package atemis.MP3lib.decoder {
 		  ((1.0/2048.0)-1.0) * (4096.0/4095.0), ((1.0/4096.0)-1.0) * (8192.0/8191.0),
 		  ((1.0/8192.0)-1.0) * (16384.0/16383.0), ((1.0/16384.0)-1.0) * (32768.0/32767.0)
 		  ];
-	
+
 		  protected var			 subbandnumber:int;
 		  protected var			 samplenumber:int;
 		  protected var			 allocation:int;
@@ -61,22 +61,23 @@ package atemis.MP3lib.decoder {
 		  protected var 		 samplelength:int;
 		  protected var 		 sample:Number;
 		  protected var	 		 factor:Number, offset:Number;
-	
+
 		  /**
 		   * Construtor.
 		   */
 		  public function SubbandLayer1(subbandnumber:int)
 		  {
 		    this.subbandnumber = subbandnumber;
-		    samplenumber = 0;  
+		    samplenumber = 0;
 		  }
-		  
+
 		  /**
 		   *
 		   */
 		  public override function read_allocation(stream:Bitstream, header:Header, crc:Crc16):void
 		  {
-		    if ((allocation = stream.get_bits (4)) == 15) ;
+		  	allocation = stream.get_bits (4);
+		    //if ((allocation = stream.get_bits (4)) == 15) ;
 			//	 cerr << "WARNING: stream contains an illegal allocation!\n";
 			// MPEG-stream is corrupted!
 			if (crc != null)
@@ -88,7 +89,7 @@ package atemis.MP3lib.decoder {
 		     offset = table_offset[allocation];
 		    }
 		  }
-	
+
 		  /**
 		   *
 		   */
@@ -96,7 +97,7 @@ package atemis.MP3lib.decoder {
 		  {
 		    if (allocation != 0) scalefactor = scalefactors[stream.get_bits(6)];
 		  }
-	
+
 		  /**
 		   *
 		   */
@@ -111,9 +112,9 @@ package atemis.MP3lib.decoder {
 			   samplenumber = 0;
 			   return true;
 		    }
-		    return false;  
+		    return false;
 		  }
-	
+
 		  /**
 		   *
 		   */

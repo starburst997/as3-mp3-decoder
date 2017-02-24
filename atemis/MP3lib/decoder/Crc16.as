@@ -1,9 +1,9 @@
 /*
- * 06/01/07 : Ported to ActionScript 3. By Jean-Denis Boivin 
+ * 06/01/07 : Ported to ActionScript 3. By Jean-Denis Boivin
  *			  (jeandenis.boivin@gmail.com) From Team-AtemiS.com
  *
  * 11/19/04 : 1.0 moved to LGPL.
- * 
+ *
  * 02/12/99 : Java Conversion by E.B , javalayer@javazoom.net
  *
  *  @(#) crc.h 1.5, last edit: 6/15/94 16:55:32
@@ -34,15 +34,15 @@ package atemis.MP3lib.decoder {
 	{
 	  private static var	polynomial:int=0x8005; // Short
 	  private var			crc:int; // Short
-	
+
 	  /**
 	   * Dummy Constructor
 	   */
 	  public function Crc16()
-	  { 
+	  {
 	  	crc = 0xFFFF;
 	  }
-	
+
 	  /**
 	   * Feed a bitstring to the crc calculation (0 < length <= 32).
 	   */
@@ -50,17 +50,19 @@ package atemis.MP3lib.decoder {
 	  {
 	  	var bitmask:int = 1 << (length - 1);
 	  	do
-	  	
-		 if (int(((crc & 0x8000) == 0)) ^ int(((bitstring & bitmask) == 0 )))
-		 {
-			crc <<= 1;
-			crc ^= polynomial;
-		 }
-		 else
-			crc <<= 1;
+
+			 if (int(((crc & 0x8000) == 0)) ^ int(((bitstring & bitmask) == 0 )))
+			 {
+				crc <<= 1;
+				crc ^= polynomial;
+			 }
+			 else
+			 {
+				crc <<= 1;
+			}
 	  	while ((bitmask >>>= 1) != 0);
 	  }
-	
+
 	  /**
 	   * Return the calculated checksum.
 	   * Erase it for next calls to add_bits().
